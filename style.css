@@ -1,91 +1,57 @@
 /* Allgemeine Stile */
 body {
     font-family: Arial, sans-serif;
-    background-color: #F3FDF3; /* Heller Mint-Hintergrund */
-    color: #2F4F4F; /* Dunkles Grau für Kontrast */
+    background-color: #F3FDF3;
+    color: #2F4F4F;
     margin: 0;
     padding: 0;
 }
 
-/* Titel mit Emoji */
 h1 {
     text-align: center;
-    color: #98FF98; /* Mintgrün */
+    color: #98FF98;
     font-size: 2.5rem;
     margin-top: 20px;
 }
 
-h1::before {
-    content: '🌍 '; /* Emoji vor dem Titel */
-}
-
-h1::after {
-    content: ' ✈️'; /* Emoji nach dem Titel */
-}
-
-/* Karte */
 #map {
     height: 70vh;
     width: 90%;
     margin: 20px auto;
-    border: 3px solid #A2E8C4; /* Rahmen in Mintgrün */
+    border: 3px solid #A2E8C4;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Liste der Orte */
 #places-tab {
     width: 90%;
     margin: 20px auto;
-    background-color: #E8FFF4; /* Sehr helles Mintgrün */
+    background-color: #E8FFF4;
     border: 2px solid #98FF98;
     border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
-#places-tab h2 {
-    text-align: center;
-    color: #2F4F4F; /* Dunkler Kontrast */
-    font-size: 1.8rem;
+ul {
+    list-style-type: none;
+    padding-left: 0;
 }
 
-#places-tab ul {
-    list-style: none;
-    padding: 0;
-}
-
-#places-tab li {
-    margin: 10px 0;
-    padding: 10px;
+li {
+    background-color: #fff;
     border: 1px solid #98FF98;
+    padding: 10px;
+    margin-bottom: 10px;
     border-radius: 5px;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
 }
 
-#places-tab li button {
-    background-color: #FF6F61; /* Auffälliges Rot für den Löschen-Button */
-    color: white;
+button {
+    background-color: #98FF98;
     border: none;
-    border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
-    font-size: 0.9rem;
-}
-
-#places-tab li button:hover {
-    background-color: #D9534F; /* Etwas dunkler bei Hover */
-}
-
-#places-tab input {
-    padding: 5px;
-    border: 1px solid #A2E8C4;
     border-radius: 5px;
 }
 
-#places-tab input::placeholder {
-    color: #AAAAAA;
+button:hover {
+    background-color: #76e076;
 }
