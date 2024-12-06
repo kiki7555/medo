@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moja karta putovanja</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+    <h1>Gdje sam sve putovala?</h1>
+    <div id="map"></div>
+    <div id="places-tab">
+        <h2>Posjećena mjesta</h2>
+        <ul id="places-list"></ul>
+    </div>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+        
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker
+                    .register('service-worker.js')
+                    .then((registration) => {
+                        console.log('Service Worker registriran:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('Registracija Service Workera nije uspjela:', error);
+                    });
+            });
+        }
+        
+
+
+    </script>
+    <!-- JavaScript -->
+     
+    <script src="script.js"></script>
+</body>
+</html>
