@@ -76,6 +76,7 @@ function addPlaceToList(place) {
     const listItem = document.createElement('li');
     listItem.innerHTML = `
         <b>Država:</b> ${place.country} <br>
+        <b>Koordinate:</b> ${place.latitude.toFixed(5)}, ${place.longitude.toFixed(5)} <br>
         <b>Dodano:</b> ${place.timestamp} <br>
         <label>Kada si bila ovdje?</label>
         <input type="text" value="${place.visitedDate}" placeholder="npr. srpanj 2023">
@@ -83,6 +84,7 @@ function addPlaceToList(place) {
     `;
     placesList.appendChild(listItem);
 }
+
 
 // Speichern der besuchten Orte im LocalStorage und zur Liste hinzufügen
 function savePlace(country, timestamp, lat, lng, marker) {
