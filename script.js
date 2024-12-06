@@ -1,58 +1,43 @@
-// Marker-Array und DOM-Referenzen
-const markers = [];
-const placesList = document.getElementById('places-list');
-
-// Länderübersetzungen auf Kroatisch (nur Beispiele)
-const countryTranslations = {
-    "Germany": "Njemačka",
-    "France": "Francuska",
-    "Italy": "Italija",
-    "United States": "Sjedinjene Američke Države",
-    "Spain": "Španjolska",
-    "Croatia": "Hrvatska",
-    "Unknown country": "Nepoznata država"
-};
-
-// Karte initialisieren
+// Karte - Initialisierung
 const map = L.map('map').setView([20, 0], 2);
+
+// OpenStreetMap-Platten (Tiles) hinzufügen
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Benutzerdefiniertes Marker-Bild
+// Icon für Marker
 const customIcon = L.icon({
-    iconUrl: 'assets/custom-marker.jpg',
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
+    iconUrl: 'assets/custom-marker.jpg', // Benutzerdefiniertes Icon
+    iconSize: [32, 32], // Größe des Icons
+    iconAnchor: [16, 32], // Ankerposition des Icons
+    popupAnchor: [0, -32] // Position des Popups relativ zum Marker
 });
 
-// Event beim Klicken auf die Karte
+// Marker hinzufügen beim Klicken auf die Karte
 map.on('click', async function (e) {
     const lat = e.latlng.lat;
     const lng = e.latlng.lng;
-
-    // Land über OpenStreetMap-API holen
-    const country = await getCountryName(lat, lng);
-    const translatedCountry = countryTranslations[country] || country;
-
-    // Zeit und Benutzereingabe
-    const timestamp = new Date().toLocaleString();
-    const visitedDate = prompt("Kada ste bili ovdje?"); // Benutzer gibt Besuchsdatum ein
 
     // Marker erstellen
     const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
     markers.push(marker);
 
-    // Popup für den Marker
-    marker.bindPopup(`Država: ${translatedCountry}<br>Vrijeme: ${timestamp}`).openPopup();
+    // Aktuelles Zeitstempel
+    const timestamp = new Date().toLocaleString();
 
-    // Ort speichern und Liste sofort aktualisieren
-    savePlace(translatedCountry, timestamp, visitedDate);
-    updatePlacesList(); // Liste neu laden
+    // Landname von der API abrufen
+    const country = await getCountryName(lat, lng);
+    const translatedCountry = countryTranslations[country] || country; // Übersetzen oder den Originalnamen beibehalten
+
+    // Speichern der Daten im LocalStorage
+    savePlace(translatedCountry, timestamp);
+
+    // Popup mit den Markerdetails
+    marker.bindPopup(`Država: ${translatedCountry} (${country}) <br> Vrijeme: ${timestamp}`).openPopup();
 });
 
-// Funktion, um den Ländernamen zu holen
+// Funktion, um den Ländernamen von OpenStreetMap zu holen
 async function getCountryName(lat, lng) {
     try {
         const response = await fetch(
@@ -66,17 +51,17 @@ async function getCountryName(lat, lng) {
     }
 }
 
-// Ort speichern
-function savePlace(country, timestamp, visitedDate) {
+// Speichern der besuchten Orte im LocalStorage
+function savePlace(country, timestamp) {
+    const visitedDate = prompt("Kada ste bili ovdje?"); // Benutzer gibt das Datum ein
     let places = JSON.parse(localStorage.getItem('places')) || [];
     places.push({ country, timestamp, visitedDate });
     localStorage.setItem('places', JSON.stringify(places));
 }
 
-// Liste der Orte laden
-function updatePlacesList() {
-    placesList.innerHTML = ''; // Alte Liste löschen
-    const places = JSON.parse(localStorage.getItem('places')) || [];
+// Laden der gespeicherten Orte
+function loadPlaces() {
+    let places = JSON.parse(localStorage.getItem('places')) || [];
     places.forEach(place => {
         const listItem = document.createElement('li');
         listItem.innerHTML = `
@@ -90,15 +75,15 @@ function updatePlacesList() {
     });
 }
 
-// Ort löschen
+// Löschen eines gespeicherten Ortes
 function deletePlace(country, timestamp) {
     if (confirm(`Da li ste sigurni da želite izbrisati ${country}?`)) {
         let places = JSON.parse(localStorage.getItem('places')) || [];
         places = places.filter(place => place.country !== country || place.timestamp !== timestamp);
         localStorage.setItem('places', JSON.stringify(places));
-        updatePlacesList(); // Liste neu laden
+        loadPlaces(); // Die Liste nach dem Löschen neu laden
     }
 }
 
-// Beim Laden der Seite die Orte anzeigen
-window.addEventListener('load', updatePlacesList);
+// Beim Laden der Seite die gespeicherten Orte anzeigen
+window.addEventListener('load', loadPlaces);
