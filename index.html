@@ -16,9 +16,14 @@
         <h2>Posjećena mjesta</h2>
         <ul id="places-list"></ul>
     </div>
+
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
     <script>
+        // Service Worker registrieren
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker
@@ -32,7 +37,5 @@
             });
         }
     </script>
-    <!-- JavaScript -->
-    <script src="script.js"></script>
 </body>
 </html>
