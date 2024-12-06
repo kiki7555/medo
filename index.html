@@ -17,8 +17,8 @@
         <ul id="places-list"></ul>
     </div>
     <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-        
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker
@@ -31,13 +31,8 @@
                     });
             });
         }
-        
-
-
     </script>
     <!-- JavaScript -->
-     iconUrl: 'assets/custom-marker.jpg'
-
     <script src="script.js"></script>
 </body>
 </html>
