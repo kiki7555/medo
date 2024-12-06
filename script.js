@@ -8,11 +8,26 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Icon für Marker
 const customIcon = L.icon({
-    iconUrl: 'assets/custom-marker.jpg', // Benutzerdefiniertes Icon
+    iconUrl: 'assets/custom-marker.jpg', // Pfad zu deinem benutzerdefinierten Bild
     iconSize: [32, 32], // Größe des Icons
-    iconAnchor: [16, 32], // Ankerposition des Icons
+    iconAnchor: [16, 32], // Position des Ankers
     popupAnchor: [0, -32] // Position des Popups relativ zum Marker
 });
+
+// Markers-Array, um alle Marker zu speichern
+const markers = [];
+const placesList = document.getElementById('places-list');
+
+// Länderübersetzungen auf Kroatisch (nur Beispiele)
+const countryTranslations = {
+    "Germany": "Njemačka",
+    "France": "Francuska",
+    "Italy": "Italija",
+    "United States": "Sjedinjene Američke Države",
+    "Spain": "Španjolska",
+    "Croatia": "Hrvatska",
+    "Unknown country": "Nepoznata država"
+};
 
 // Marker hinzufügen beim Klicken auf die Karte
 map.on('click', async function (e) {
